@@ -1,207 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Hydrogen Electrolysis Project</title>
-  <meta name="description" content="A one-page project website for a water electrolysis experiment focused on hydrogen generation, efficiency, and safe operating conditions." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <div class="brand">Hydrogen Electrolysis Project</div>
-      <nav class="nav">
-        <a href="#overview">Overview</a>
-        <a href="#method">Method</a>
-        <a href="#gallery">Photos</a>
-        <a href="#data">Data</a>
-        <a href="#charts">Graphs</a>
-      </nav>
-    </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">Water Electrolysis · Hydrogen Generation</p>
-          <h1>Finding the safest and most efficient operating conditions for hydrogen production.</h1>
-          <p class="hero-text">
-            This project investigates how applied voltage and current affect hydrogen output in a low-cost water electrolysis setup.
-            The goal is to compare gas production, energy use, and overall efficiency while keeping the process organized, measurable, and safety-aware.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#data">View Data</a>
-            <a class="button secondary" href="#charts">View Graphs</a>
-          </div>
-        </div>
-        <div class="hero-card glass">
-          <h2>Project Goals</h2>
-          <ul>
-            <li>Measure hydrogen production across multiple voltage settings</li>
-            <li>Track current, time, and gas volume collected</li>
-            <li>Compare energy input against hydrogen output</li>
-            <li>Identify a practical voltage range that balances safety and efficiency</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <h2 class="logo">Johnson To</h2>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#method">Method</a></li>
+    <li><a href="#photos">Photos</a></li>
+    <li><a href="#data">Data</a></li>
+    <li><a href="#graphs">Graphs</a></li>
+  </ul>
+</nav>
 
-    <section id="overview" class="section">
-      <div class="container two-col">
-        <div>
-          <p class="section-label">Overview</p>
-          <h2>About the experiment</h2>
-          <p>
-            The setup is designed to electrolyze water using a simple benchtop apparatus with electrodes, a power source,
-            and gas collection containers. By testing different operating conditions, the project aims to understand how
-            electrical input changes hydrogen production rate and system performance.
-          </p>
-          <p>
-            This page is built so you can keep everything for the project in one place: photos, raw data, graph images,
-            and interactive charts generated directly from your CSV data file.
-          </p>
-        </div>
-        <div class="info-grid">
-          <article class="info-card">
-            <h3>Main Question</h3>
-            <p>Which operating conditions produce hydrogen effectively without pushing the setup beyond a reasonable safety margin?</p>
-          </article>
-          <article class="info-card">
-            <h3>Variables to Track</h3>
-            <p>Voltage, current, run time, electrolyte concentration, hydrogen volume, oxygen volume, and temperature.</p>
-          </article>
-          <article class="info-card">
-            <h3>Outputs</h3>
-            <p>Interactive plots, graph image uploads, raw data tables, and a clean project summary suitable for presentation.</p>
-          </article>
-          <article class="info-card">
-            <h3>Recommended Use</h3>
-            <p>Host on GitHub Pages and update it by replacing the CSV file and adding images to the project folders.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+<!-- HERO -->
+<section class="hero">
+  <h1>Hydrogen Electrolysis Project</h1>
+  <p>Analyzing how voltage affects hydrogen production efficiency</p>
+</section>
 
-    <section id="method" class="section muted">
-      <div class="container">
-        <p class="section-label">Method</p>
-        <h2>Suggested structure for documenting your work</h2>
-        <div class="method-grid">
-          <article class="method-card">
-            <span>01</span>
-            <h3>Setup</h3>
-            <p>Document electrode material, electrolyte composition, container geometry, and gas collection method.</p>
-          </article>
-          <article class="method-card">
-            <span>02</span>
-            <h3>Testing</h3>
-            <p>Run multiple trials at each voltage setting and record current, time, and collected gas volume.</p>
-          </article>
-          <article class="method-card">
-            <span>03</span>
-            <h3>Analysis</h3>
-            <p>Use the CSV file to generate charts of gas production rate, total gas collected, and efficiency trends.</p>
-          </article>
-          <article class="method-card">
-            <span>04</span>
-            <h3>Presentation</h3>
-            <p>Add setup photos, graph screenshots, and a short conclusion about the most useful operating range.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+<!-- OVERVIEW -->
+<section id="overview" class="section">
+  <h2>Overview</h2>
+  <p>
+    This project investigates the relationship between applied voltage and hydrogen gas production
+    through water electrolysis. The goal is to determine an optimal operating point that balances
+    efficiency and output.
+  </p>
+</section>
 
-    <section id="gallery" class="section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <p class="section-label">Photos</p>
-            <h2>Experiment gallery</h2>
-          </div>
-          <label class="upload-pill" for="photoUpload">Add local preview photos</label>
-          <input id="photoUpload" type="file" accept="image/*" multiple hidden />
-        </div>
-        <p class="section-note">
-          You can either preview local images here with the upload button above, or permanently add project photos by placing them in
-          <code>assets/photos/</code> and listing them in <code>script.js</code>.
-        </p>
-        <div id="photoGallery" class="gallery-grid"></div>
-      </div>
-    </section>
+<!-- METHOD -->
+<section id="method" class="section">
+  <h2>Method</h2>
+  <p>
+    A DC power supply was used to apply varying voltages to an electrolytic cell. Hydrogen gas was
+    collected and measured over fixed time intervals. Multiple trials were conducted for accuracy.
+  </p>
+</section>
 
-    <section id="data" class="section muted">
-      <div class="container">
-        <div class="section-head stack-mobile">
-          <div>
-            <p class="section-label">Raw Data</p>
-            <h2>CSV-powered data table</h2>
-          </div>
-          <div class="controls">
-            <label class="upload-pill" for="csvUpload">Upload local CSV</label>
-            <input id="csvUpload" type="file" accept=".csv" hidden />
-          </div>
-        </div>
-        <p class="section-note">
-          By default, the site reads <code>data/electrolysis_data.csv</code>. You can also preview a new CSV locally before replacing the file.
-        </p>
-        <div class="table-wrap">
-          <table id="dataTable"></table>
-        </div>
-      </div>
-    </section>
+<!-- PHOTOS -->
+<section id="photos" class="section">
+  <h2>Setup Photos</h2>
+  <div class="grid">
+    <img src="assets/photos/setup1.jpg">
+    <img src="assets/photos/setup2.jpg">
+  </div>
+</section>
 
-    <section id="charts" class="section">
-      <div class="container">
-        <p class="section-label">Graphs</p>
-        <h2>Interactive charts from your dataset</h2>
-        <p class="section-note">
-          These graphs update automatically from the CSV as long as your headers stay consistent.
-        </p>
-        <div class="chart-grid">
-          <div class="chart-card">
-            <h3>Hydrogen Volume vs Voltage</h3>
-            <div id="chartHydrogenVoltage" class="chart"></div>
-          </div>
-          <div class="chart-card">
-            <h3>Current vs Voltage</h3>
-            <div id="chartCurrentVoltage" class="chart"></div>
-          </div>
-          <div class="chart-card full-span">
-            <h3>Hydrogen Production Rate</h3>
-            <div id="chartRate" class="chart"></div>
-          </div>
-        </div>
+<!-- DATA -->
+<section id="data" class="section">
+  <h2>Raw Data</h2>
+  <table id="data-table"></table>
+</section>
 
-        <div class="section-head extra-space">
-          <div>
-            <h2>Uploaded graph images</h2>
-            <p class="section-note">Use this section for screenshots from Excel, Python, or lab software.</p>
-          </div>
-          <label class="upload-pill" for="graphUpload">Add local graph images</label>
-          <input id="graphUpload" type="file" accept="image/*" multiple hidden />
-        </div>
-        <div id="graphGallery" class="gallery-grid graph-grid"></div>
-      </div>
-    </section>
-  </main>
+<!-- GRAPHS -->
+<section id="graphs" class="section">
+  <h2>Graphs</h2>
 
-  <footer class="site-footer">
-    <div class="container footer-wrap">
-      <div>
-        <strong>Hydrogen Electrolysis Project</strong>
-        <p>One-page project site for documenting setup, raw data, photos, and analysis.</p>
-      </div>
-      <a href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
-    </div>
-  </footer>
+  <div class="graph-container">
+    <canvas id="voltageChart"></canvas>
+  </div>
 
-  <script src="script.js"></script>
+  <div class="graph-container">
+    <canvas id="currentChart"></canvas>
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2026 Johnson To</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
