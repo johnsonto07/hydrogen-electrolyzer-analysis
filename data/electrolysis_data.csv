@@ -1,19 +1,19 @@
-﻿Trial ,Voltage (V),Current (A),Time (s) ,Hydrogen Volume (mL),H2 Rate (mL/s),Notes
-1,4.000,0.054,60.000,0.250,0.004,slight bubbling
-2,4.000,0.055,60.000,0.280,0.005,slight bubbling
-3,4.000,0.059,60.000,0.300,0.005,slight bubbling
-4,4.500,0.082,60.000,0.480,0.008,still slight bubbling
-5,4.500,0.085,60.000,0.490,0.008,still slight bubbling
-6,4.500,0.081,60.000,0.470,0.008,still slight bubbling
-7,5.000,0.108,60.000,0.680,0.011,bubbling increases but isn't too high
-8,5.000,0.103,60.000,0.650,0.011,bubbling increases but isn't too high
-9,5.000,0.116,60.000,0.720,0.012,bubbling increases but isn't too high
-10,5.500,0.143,60.000,0.930,0.016,bubbling rate is noticable 
-11,5.500,0.130,60.000,0.850,0.014,bubbling rate is noticable 
-12,5.500,0.126,60.000,0.830,0.014,bubbling rate is noticable 
-13,6.000,0.159,60.000,0.970,0.016,"aggressive bubbling, some bubbles escaped column"
-14,6.000,0.168,60.000,1.030,0.017,"aggressive bubbling, some bubbles escaped column"
-15,6.000,0.174,60.000,1.070,0.018,"aggressive bubbling, some bubbles escaped column"
-16,6.500,0.184,60.000,1.130,0.019,"very aggressive bubbling, some bubbles escape but production is high"
-17,6.500,0.202,60.000,1.330,0.022,"very aggressive bubbling, some bubbles escape but production is high"
-18,6.500,0.217,60.000,1.350,0.023,"very aggressive bubbling, some bubbles escape but production is high"
+Trial,Voltage (V),Current (A),Time (s),Hydrogen Volume (mL),H2 Rate (mL/s),Notes
+1,4.0,0.054,60,0.25,0.00417,
+2,4.0,0.056,60,0.28,0.00467,
+3,4.0,0.058,60,0.30,0.00500,
+4,4.5,0.080,60,0.48,0.00800,
+5,4.5,0.083,60,0.49,0.00817,
+6,4.5,0.085,60,0.47,0.00783,
+7,5.0,0.102,60,0.68,0.01133,
+8,5.0,0.107,60,0.65,0.01083,
+9,5.0,0.118,60,0.72,0.01200,
+10,5.5,0.123,60,0.83,0.01383,
+11,5.5,0.132,60,0.85,0.01417,
+12,5.5,0.144,60,0.93,0.01550,
+13,6.0,0.160,60,0.97,0.01617,
+14,6.0,0.161,60,1.03,0.01717,
+15,6.0,0.180,60,1.07,0.01783,
+16,6.5,0.184,60,1.13,0.01883,
+17,6.5,0.202,60,1.23,0.02050,
+18,6.5,0.217,60,1.45,0.02417,
