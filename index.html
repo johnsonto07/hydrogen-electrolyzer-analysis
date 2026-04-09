@@ -47,50 +47,51 @@
     </section>
 
     <section id="theory" class="section alt">
-      <div class="container two-col">
-        <div>
-          <p class="section-label">Theory</p>
-          <h2>Why hydrogen increases</h2>
-          <p>
-            Water electrolysis splits water into hydrogen and oxygen. Hydrogen forms at the cathode through a reduction reaction that requires electrons. Ohm's Law explains how increasing voltage raises current, and Faraday's Law explains how increased current raises hydrogen production.
-          </p>
-          <div class="formula-box">
-            <p><strong>Voltage → Current → Charge → Hydrogen</strong></p>
-            <p>Q = I × t</p>
-            <p>Hydrogen produced ∝ charge passed</p>
-          </div>
+      <div class="container narrow">
+        <p class="section-label">Theory</p>
+        <h2>Why hydrogen increases</h2>
+        <p>
+          Water electrolysis splits water into hydrogen and oxygen. Hydrogen forms at the cathode through a reduction reaction that requires electrons. Ohm's Law explains how increasing voltage raises current, and Faraday's Law explains how increased current raises hydrogen production.
+        </p>
+
+        <div class="theory-lines">
+          <p><strong>Voltage → Current → Charge → Hydrogen</strong></p>
+          <p>Q = I × t</p>
+          <p>Hydrogen produced ∝ charge passed</p>
         </div>
-        <div class="card">
-          <h3>Key reactions</h3>
+
+        <div class="theory-reactions">
           <p><strong>Cathode:</strong> 2H₂O + 2e⁻ → H₂ + 2OH⁻</p>
           <p><strong>Overall:</strong> 2H₂O → 2H₂ + O₂</p>
-          <h3>Key idea</h3>
-          <p>Hydrogen production depends directly on current. Voltage affects hydrogen indirectly by increasing current.</p>
+          <p><strong>Key idea:</strong> Hydrogen production depends directly on current. Voltage affects hydrogen indirectly by increasing current.</p>
         </div>
       </div>
     </section>
 
     <section id="method" class="section">
-      <div class="container two-col">
-        <div>
-          <p class="section-label">Method</p>
-          <h2>Experimental design</h2>
-          <ul class="clean-list">
-            <li>Electrolyte: baking soda dissolved in 500 mL water</li>
-            <li>Voltage range tested: 4.0 V to 6.5 V</li>
-            <li>Run time held constant at 60 seconds</li>
-            <li>Measured current and hydrogen volume for each trial</li>
-            <li>Three trials collected at each voltage</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Controlled variables</h3>
-          <ul class="clean-list">
-            <li>Electrolyte volume</li>
-            <li>Experimental run time</li>
-            <li>Same electrode setup</li>
-            <li>Same measurement approach for gas collection</li>
-          </ul>
+      <div class="container narrow">
+        <p class="section-label">Method</p>
+        <h2>Experimental Design</h2>
+
+        <ul class="clean-list">
+          <li>Electrolyte: baking soda dissolved in 500 mL water</li>
+          <li>Voltage range tested: 4.0 V to 6.5 V</li>
+          <li>Run time held constant at 60 seconds</li>
+          <li>Measured current and hydrogen volume for each trial</li>
+          <li>Three trials collected at each voltage</li>
+          <li>Controlled variables: electrolyte volume, run time, and electrode setup</li>
+        </ul>
+
+        <div class="photo-grid">
+          <figure class="photo-card">
+            <img src="assets/photos/setup1.jpg" alt="Experimental setup photo 1">
+            <figcaption>Experimental setup showing the electrolysis apparatus.</figcaption>
+          </figure>
+
+          <figure class="photo-card">
+            <img src="assets/photos/setup2.jpg" alt="Experimental setup photo 2">
+            <figcaption>Hydrogen collection and measurement setup during a trial.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -98,37 +99,38 @@
     <section id="results" class="section alt">
       <div class="container">
         <p class="section-label">Results</p>
-        <h2>Data-driven analysis</h2>
+        <h2>Data-Driven Analysis</h2>
         <p class="section-note">
           These figures were generated in matplotlib from the processed dataset. Error bars show trial-to-trial variation across each voltage.
         </p>
+
         <div class="graph-grid">
-          <figure class="graph-card">
+          <figure class="graph-item">
             <img src="assets/graphs/voltage_vs_current.png" alt="Voltage vs Current graph" />
             <figcaption>Voltage vs Current. Current increased approximately linearly as voltage increased.</figcaption>
           </figure>
 
-          <figure class="graph-card">
+          <figure class="graph-item">
             <img src="assets/graphs/voltage_vs_hydrogen.png" alt="Voltage vs Hydrogen graph" />
             <figcaption>Voltage vs Hydrogen Volume. Hydrogen yield rose steadily across the tested voltage range.</figcaption>
           </figure>
 
-          <figure class="graph-card full">
+          <figure class="graph-item full">
             <img src="assets/graphs/actual_vs_theoretical_hydrogen.png" alt="Actual vs theoretical hydrogen graph" />
             <figcaption>Actual vs Theoretical Hydrogen Volume. The ideal yield line gives a direct visual comparison between theory and experiment.</figcaption>
           </figure>
 
-          <figure class="graph-card">
+          <figure class="graph-item">
             <img src="assets/graphs/current_vs_hydrogen.png" alt="Current vs Hydrogen graph" />
             <figcaption>Current vs Hydrogen Volume. This is the strongest theory graph because it directly reflects Faraday's Law.</figcaption>
           </figure>
 
-          <figure class="graph-card">
+          <figure class="graph-item">
             <img src="assets/graphs/voltage_vs_rate.png" alt="Voltage vs hydrogen production rate graph" />
             <figcaption>Voltage vs Hydrogen Production Rate. Rate increased as the electrical input increased.</figcaption>
           </figure>
 
-          <figure class="graph-card full">
+          <figure class="graph-item full">
             <img src="assets/graphs/voltage_vs_efficiency.png" alt="Voltage vs efficiency graph" />
             <figcaption>Voltage vs Efficiency. Efficiency rose from the lowest setting and then leveled off at higher voltages.</figcaption>
           </figure>
@@ -137,40 +139,28 @@
     </section>
 
     <section id="error" class="section">
-      <div class="container two-col">
-        <div>
-          <p class="section-label">Error Analysis</p>
-          <h2>Why measured values differ from ideal values</h2>
-          <ul class="clean-list">
-            <li>Gas loss during collection can lower the measured hydrogen volume.</li>
-            <li>Small-volume readings introduce measurement uncertainty.</li>
-            <li>Current can fluctuate slightly during a run.</li>
-            <li>Baking soda electrolyte has limited conductivity compared with stronger electrolytes.</li>
-            <li>At higher bubbling rates, gas collection becomes less precise.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Why include this section</h3>
-          <p>
-            Error analysis strengthens the project because it explains why real systems do not perfectly match theoretical predictions. It also shows that the project was evaluated critically instead of only descriptively.
-          </p>
-          <h3>Best report additions</h3>
-          <p>
-            Include standard deviation, percent error, efficiency, and a discussion of how the actual yield compares with the ideal yield predicted by Faraday's Law.
-          </p>
-        </div>
+      <div class="container narrow">
+        <p class="section-label">Error Analysis</p>
+        <h2>Why measured values differ from ideal values</h2>
+        <ul class="clean-list">
+          <li>Gas loss during collection can lower the measured hydrogen volume.</li>
+          <li>Small-volume readings introduce measurement uncertainty.</li>
+          <li>Current can fluctuate slightly during a run.</li>
+          <li>Baking soda electrolyte has limited conductivity compared with stronger electrolytes.</li>
+          <li>At higher bubbling rates, gas collection becomes less precise.</li>
+        </ul>
       </div>
     </section>
 
     <section id="data" class="section alt">
       <div class="container">
         <p class="section-label">Processed Data</p>
-        <h2>Summary table by voltage</h2>
+        <h2>Summary Table by Voltage</h2>
         <div class="table-wrap">
           <table id="summaryTable"></table>
         </div>
 
-        <h2 class="subhead">Raw data with calculated columns</h2>
+        <h2 class="subhead">Raw Data with Calculated Columns</h2>
         <div class="table-wrap">
           <table id="rawTable"></table>
         </div>
@@ -188,6 +178,9 @@
     </div>
   </footer>
 
+  <script src="script.js"></script>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
