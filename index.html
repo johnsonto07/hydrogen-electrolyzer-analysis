@@ -4,190 +4,176 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hydrogen Electrolysis Project</title>
-  <meta name="description" content="A one-page project website for a water electrolysis experiment focused on hydrogen generation, efficiency, and safe operating conditions." />
+  <meta name="description" content="Hydrogen electrolysis project with processed data, static matplotlib figures, theory comparison, and error analysis." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav-wrap">
-      <div class="brand">Hydrogen Electrolysis Project</div>
+      <div class="brand">Johnson To</div>
       <nav class="nav">
         <a href="#overview">Overview</a>
+        <a href="#theory">Theory</a>
         <a href="#method">Method</a>
-        <a href="#gallery">Photos</a>
+        <a href="#results">Results</a>
+        <a href="#error">Error Analysis</a>
         <a href="#data">Data</a>
-        <a href="#charts">Graphs</a>
       </nav>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container hero-grid">
+      <div class="container hero-inner">
+        <p class="eyebrow">Chemical Engineering Project</p>
+        <h1>Hydrogen Electrolysis Project</h1>
+        <p class="hero-text">
+          This project studies how applied voltage changes current, hydrogen yield, production rate, and system efficiency in a benchtop water electrolysis setup.
+        </p>
+      </div>
+    </section>
+
+    <section id="overview" class="section">
+      <div class="container narrow">
+        <p class="section-label">Overview</p>
+        <h2>Project Goal</h2>
+        <p>
+          The goal of this project is to determine how voltage and current affect hydrogen production, compare experimental yield against the ideal yield predicted by Faraday's Law, and evaluate how efficiently the system converts electrical input into measurable hydrogen gas.
+        </p>
+      </div>
+    </section>
+
+    <section id="theory" class="section alt">
+      <div class="container two-col">
         <div>
-          <p class="eyebrow">Water Electrolysis · Hydrogen Generation</p>
-          <h1>Finding the safest and most efficient operating conditions for hydrogen production.</h1>
-          <p class="hero-text">
-            This project investigates how applied voltage and current affect hydrogen output in a low-cost water electrolysis setup.
-            The goal is to compare gas production, energy use, and overall efficiency while keeping the process organized, measurable, and safety-aware.
+          <p class="section-label">Theory</p>
+          <h2>Why hydrogen increases</h2>
+          <p>
+            Water electrolysis splits water into hydrogen and oxygen. Hydrogen forms at the cathode through a reduction reaction that requires electrons. Ohm's Law explains how increasing voltage raises current, and Faraday's Law explains how increased current raises hydrogen production.
           </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#data">View Data</a>
-            <a class="button secondary" href="#charts">View Graphs</a>
+          <div class="formula-box">
+            <p><strong>Voltage → Current → Charge → Hydrogen</strong></p>
+            <p>Q = I × t</p>
+            <p>Hydrogen produced ∝ charge passed</p>
           </div>
         </div>
-        <div class="hero-card glass">
-          <h2>Project Goals</h2>
-          <ul>
-            <li>Measure hydrogen production across multiple voltage settings</li>
-            <li>Track current, time, and gas volume collected</li>
-            <li>Compare energy input against hydrogen output</li>
-            <li>Identify a practical voltage range that balances safety and efficiency</li>
+        <div class="card">
+          <h3>Key reactions</h3>
+          <p><strong>Cathode:</strong> 2H₂O + 2e⁻ → H₂ + 2OH⁻</p>
+          <p><strong>Overall:</strong> 2H₂O → 2H₂ + O₂</p>
+          <h3>Key idea</h3>
+          <p>Hydrogen production depends directly on current. Voltage affects hydrogen indirectly by increasing current.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="method" class="section">
+      <div class="container two-col">
+        <div>
+          <p class="section-label">Method</p>
+          <h2>Experimental design</h2>
+          <ul class="clean-list">
+            <li>Electrolyte: baking soda dissolved in 500 mL water</li>
+            <li>Voltage range tested: 4.0 V to 6.5 V</li>
+            <li>Run time held constant at 60 seconds</li>
+            <li>Measured current and hydrogen volume for each trial</li>
+            <li>Three trials collected at each voltage</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Controlled variables</h3>
+          <ul class="clean-list">
+            <li>Electrolyte volume</li>
+            <li>Experimental run time</li>
+            <li>Same electrode setup</li>
+            <li>Same measurement approach for gas collection</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="overview" class="section">
+    <section id="results" class="section alt">
+      <div class="container">
+        <p class="section-label">Results</p>
+        <h2>Data-driven analysis</h2>
+        <p class="section-note">
+          These figures were generated in matplotlib from the processed dataset. Error bars show trial-to-trial variation across each voltage.
+        </p>
+        <div class="graph-grid">
+          <figure class="graph-card">
+            <img src="assets/graphs/voltage_vs_current.png" alt="Voltage vs Current graph" />
+            <figcaption>Voltage vs Current. Current increased approximately linearly as voltage increased.</figcaption>
+          </figure>
+
+          <figure class="graph-card">
+            <img src="assets/graphs/voltage_vs_hydrogen.png" alt="Voltage vs Hydrogen graph" />
+            <figcaption>Voltage vs Hydrogen Volume. Hydrogen yield rose steadily across the tested voltage range.</figcaption>
+          </figure>
+
+          <figure class="graph-card full">
+            <img src="assets/graphs/actual_vs_theoretical_hydrogen.png" alt="Actual vs theoretical hydrogen graph" />
+            <figcaption>Actual vs Theoretical Hydrogen Volume. The ideal yield line gives a direct visual comparison between theory and experiment.</figcaption>
+          </figure>
+
+          <figure class="graph-card">
+            <img src="assets/graphs/current_vs_hydrogen.png" alt="Current vs Hydrogen graph" />
+            <figcaption>Current vs Hydrogen Volume. This is the strongest theory graph because it directly reflects Faraday's Law.</figcaption>
+          </figure>
+
+          <figure class="graph-card">
+            <img src="assets/graphs/voltage_vs_rate.png" alt="Voltage vs hydrogen production rate graph" />
+            <figcaption>Voltage vs Hydrogen Production Rate. Rate increased as the electrical input increased.</figcaption>
+          </figure>
+
+          <figure class="graph-card full">
+            <img src="assets/graphs/voltage_vs_efficiency.png" alt="Voltage vs efficiency graph" />
+            <figcaption>Voltage vs Efficiency. Efficiency rose from the lowest setting and then leveled off at higher voltages.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="error" class="section">
       <div class="container two-col">
         <div>
-          <p class="section-label">Overview</p>
-          <h2>About the experiment</h2>
+          <p class="section-label">Error Analysis</p>
+          <h2>Why measured values differ from ideal values</h2>
+          <ul class="clean-list">
+            <li>Gas loss during collection can lower the measured hydrogen volume.</li>
+            <li>Small-volume readings introduce measurement uncertainty.</li>
+            <li>Current can fluctuate slightly during a run.</li>
+            <li>Baking soda electrolyte has limited conductivity compared with stronger electrolytes.</li>
+            <li>At higher bubbling rates, gas collection becomes less precise.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Why include this section</h3>
           <p>
-            The setup is designed to electrolyze water using a simple benchtop apparatus with electrodes, a power source,
-            and gas collection containers. By testing different operating conditions, the project aims to understand how
-            electrical input changes hydrogen production rate and system performance.
+            Error analysis strengthens the project because it explains why real systems do not perfectly match theoretical predictions. It also shows that the project was evaluated critically instead of only descriptively.
           </p>
+          <h3>Best report additions</h3>
           <p>
-            This page is built so you can keep everything for the project in one place: photos, raw data, graph images,
-            and interactive charts generated directly from your CSV data file.
+            Include standard deviation, percent error, efficiency, and a discussion of how the actual yield compares with the ideal yield predicted by Faraday's Law.
           </p>
         </div>
-        <div class="info-grid">
-          <article class="info-card">
-            <h3>Main Question</h3>
-            <p>Which operating conditions produce hydrogen effectively without pushing the setup beyond a reasonable safety margin?</p>
-          </article>
-          <article class="info-card">
-            <h3>Variables to Track</h3>
-            <p>Voltage, current, run time, electrolyte concentration, hydrogen volume, oxygen volume, and temperature.</p>
-          </article>
-          <article class="info-card">
-            <h3>Outputs</h3>
-            <p>Interactive plots, graph image uploads, raw data tables, and a clean project summary suitable for presentation.</p>
-          </article>
-          <article class="info-card">
-            <h3>Recommended Use</h3>
-            <p>Host on GitHub Pages and update it by replacing the CSV file and adding images to the project folders.</p>
-          </article>
-        </div>
       </div>
     </section>
 
-    <section id="method" class="section muted">
+    <section id="data" class="section alt">
       <div class="container">
-        <p class="section-label">Method</p>
-        <h2>Suggested structure for documenting your work</h2>
-        <div class="method-grid">
-          <article class="method-card">
-            <span>01</span>
-            <h3>Setup</h3>
-            <p>Document electrode material, electrolyte composition, container geometry, and gas collection method.</p>
-          </article>
-          <article class="method-card">
-            <span>02</span>
-            <h3>Testing</h3>
-            <p>Run multiple trials at each voltage setting and record current, time, and collected gas volume.</p>
-          </article>
-          <article class="method-card">
-            <span>03</span>
-            <h3>Analysis</h3>
-            <p>Use the CSV file to generate charts of gas production rate, total gas collected, and efficiency trends.</p>
-          </article>
-          <article class="method-card">
-            <span>04</span>
-            <h3>Presentation</h3>
-            <p>Add setup photos, graph screenshots, and a short conclusion about the most useful operating range.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="gallery" class="section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <p class="section-label">Photos</p>
-            <h2>Experiment gallery</h2>
-          </div>
-          <label class="upload-pill" for="photoUpload">Add local preview photos</label>
-          <input id="photoUpload" type="file" accept="image/*" multiple hidden />
-        </div>
-        <p class="section-note">
-          You can either preview local images here with the upload button above, or permanently add project photos by placing them in
-          <code>assets/photos/</code> and listing them in <code>script.js</code>.
-        </p>
-        <div id="photoGallery" class="gallery-grid"></div>
-      </div>
-    </section>
-
-    <section id="data" class="section muted">
-      <div class="container">
-        <div class="section-head stack-mobile">
-          <div>
-            <p class="section-label">Raw Data</p>
-            <h2>CSV-powered data table</h2>
-          </div>
-          <div class="controls">
-            <label class="upload-pill" for="csvUpload">Upload local CSV</label>
-            <input id="csvUpload" type="file" accept=".csv" hidden />
-          </div>
-        </div>
-        <p class="section-note">
-          By default, the site reads <code>data/electrolysis_data.csv</code>. You can also preview a new CSV locally before replacing the file.
-        </p>
+        <p class="section-label">Processed Data</p>
+        <h2>Summary table by voltage</h2>
         <div class="table-wrap">
-          <table id="dataTable"></table>
-        </div>
-      </div>
-    </section>
-
-    <section id="charts" class="section">
-      <div class="container">
-        <p class="section-label">Graphs</p>
-        <h2>Interactive charts from your dataset</h2>
-        <p class="section-note">
-          These graphs update automatically from the CSV as long as your headers stay consistent.
-        </p>
-        <div class="chart-grid">
-          <div class="chart-card">
-            <h3>Hydrogen Volume vs Voltage</h3>
-            <div id="chartHydrogenVoltage" class="chart"></div>
-          </div>
-          <div class="chart-card">
-            <h3>Current vs Voltage</h3>
-            <div id="chartCurrentVoltage" class="chart"></div>
-          </div>
-          <div class="chart-card full-span">
-            <h3>Hydrogen Production Rate</h3>
-            <div id="chartRate" class="chart"></div>
-          </div>
+          <table id="summaryTable"></table>
         </div>
 
-        <div class="section-head extra-space">
-          <div>
-            <h2>Uploaded graph images</h2>
-            <p class="section-note">Use this section for screenshots from Excel, Python, or lab software.</p>
-          </div>
-          <label class="upload-pill" for="graphUpload">Add local graph images</label>
-          <input id="graphUpload" type="file" accept="image/*" multiple hidden />
+        <h2 class="subhead">Raw data with calculated columns</h2>
+        <div class="table-wrap">
+          <table id="rawTable"></table>
         </div>
-        <div id="graphGallery" class="gallery-grid graph-grid"></div>
       </div>
     </section>
   </main>
@@ -196,9 +182,9 @@
     <div class="container footer-wrap">
       <div>
         <strong>Hydrogen Electrolysis Project</strong>
-        <p>One-page project site for documenting setup, raw data, photos, and analysis.</p>
+        <p>Static matplotlib figures, processed data, and theory-based analysis.</p>
       </div>
-      <a href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
+      <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
     </div>
   </footer>
 
