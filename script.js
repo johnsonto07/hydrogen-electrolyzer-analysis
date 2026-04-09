@@ -17,9 +17,9 @@ async function loadCsv(path) {
 function formatValue(value) {
   const num = Number(value);
   if (!Number.isFinite(num)) return value;
-  if (Math.abs(num) >= 100) return num.toFixed(2);
-  if (Math.abs(num) >= 1) return num.toFixed(4);
-  return num.toFixed(5);
+
+  // 3 significant figures formatting
+  return Number(num.toPrecision(3)).toString();
 }
 
 function renderTable(rows, tableId) {
