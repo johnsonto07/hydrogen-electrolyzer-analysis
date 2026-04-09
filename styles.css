@@ -6,13 +6,16 @@
   --muted: #5d6d63;
   --line: #d9e1dc;
   --accent: #2f6d59;
-  --shadow: 0 18px 36px rgba(20, 36, 29, 0.08);
-  --radius: 22px;
   --container: 1120px;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -24,6 +27,7 @@ body {
 img {
   max-width: 100%;
   display: block;
+  border-radius: 16px;
 }
 
 a {
@@ -36,7 +40,9 @@ a {
   margin: 0 auto;
 }
 
-.narrow { max-width: 820px; }
+.narrow {
+  max-width: 860px;
+}
 
 .site-header {
   position: sticky;
@@ -114,8 +120,8 @@ h3 {
 
 .hero-text,
 .section p,
-.card p,
-.section-note {
+.section-note,
+figcaption {
   color: var(--muted);
   line-height: 1.75;
 }
@@ -130,30 +136,14 @@ h3 {
   border-bottom: 1px solid var(--line);
 }
 
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 0.9fr;
-  gap: 1.5rem;
-  align-items: start;
+.theory-lines {
+  margin-top: 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent);
 }
 
-.card,
-.formula-box,
-.graph-card,
-.table-wrap {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.card,
-.formula-box {
-  padding: 1.35rem;
-}
-
-.formula-box {
-  margin-top: 1.2rem;
+.theory-reactions {
+  margin-top: 1.5rem;
 }
 
 .clean-list {
@@ -162,32 +152,41 @@ h3 {
   line-height: 1.8;
 }
 
-.graph-grid {
+.photo-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
-  margin-top: 1.25rem;
+  margin-top: 2rem;
 }
 
-.graph-card {
-  padding: 1rem;
+.photo-card figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
 }
 
-.graph-card.full {
+.graph-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.graph-item.full {
   grid-column: 1 / -1;
 }
 
-.graph-card figcaption {
-  color: var(--muted);
-  line-height: 1.65;
-  font-size: 0.95rem;
+.graph-item figcaption {
   margin-top: 0.8rem;
+  font-size: 0.95rem;
 }
 
 .table-wrap {
   overflow-x: auto;
-  padding: 1rem;
   margin-top: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
 }
 
 table {
@@ -229,11 +228,15 @@ th {
 }
 
 @media (max-width: 900px) {
-  .two-col,
+  .photo-grid,
   .graph-grid {
     grid-template-columns: 1fr;
   }
 
+  .graph-item.full {
+    grid-column: auto;
+  }
+}
   .graph-card.full {
     grid-column: auto;
   }
