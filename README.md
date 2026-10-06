@@ -1,60 +1,20 @@
-# Hydrogen Electrolysis Project Website
+# Hydrogen Electrolysis
 
-This is a one-page static website for presenting a water electrolysis project.
-It is designed to work well on GitHub Pages.
+Project site: https://johnsonto07.github.io/hydrogen-electrolyzer-analysis/
+
+A benchtop water electrolysis cell with graphite electrodes and a baking soda electrolyte. 18 timed trials from 4.0 to 6.5 V, hydrogen measured by water displacement and compared against Faraday's law. Peak Faradaic efficiency was 88% at 5.5 V.
 
 ## Files
 
-- `index.html` — page structure
-- `styles.css` — layout and styling
-- `script.js` — gallery logic, CSV parsing, and chart generation
-- `data/electrolysis_data.csv` — raw dataset used for the table and interactive charts
-- `assets/photos/` — place permanent project photos here
-- `assets/graphs/` — place permanent graph images here
+- `index.html`, `styles.css`, `script.js`: the one-page site. The charts and tables are drawn in the browser from `data/electrolysis_data.csv`, so editing that file updates the page.
+- `data/electrolysis_data.csv`: raw measurements, one row per trial.
+- `analysis.py`: pandas/matplotlib analysis. Writes the processed CSVs in `data/` and the static figures in `assets/graphs/`.
+- `fonts/`: Archivo variable font (SIL Open Font License, see `fonts/OFL.txt`).
 
-## How to update the site
+## Preview locally
 
-### Add your own photos
-1. Put your image files inside `assets/photos/`
-2. Open `script.js`
-3. Replace the placeholder items in `defaultPhotos` with your image file names and captions
+The page loads the CSV with `fetch`, so open it through a local server rather than as a file:
 
-Example:
-```js
-const defaultPhotos = [
-  { src: 'assets/photos/setup.jpg', caption: 'Full electrolysis setup on the bench.' },
-  { src: 'assets/photos/electrodes.jpg', caption: 'Close-up of electrodes during gas evolution.' }
-];
-```
-
-### Add graph screenshots
-1. Put your graph images inside `assets/graphs/`
-2. Open `script.js`
-3. Replace the placeholder item in `defaultGraphs`
-
-### Update raw data
-1. Open `data/electrolysis_data.csv`
-2. Replace the sample rows with your actual data
-3. Keep the same header names if you want the charts to keep working automatically
-
-Required chart headers:
-- `Voltage (V)`
-- `Current (A)`
-- `Time (s)`
-- `Hydrogen Volume (mL)`
-
-## Local preview
-You can open `index.html` directly in a browser, but if a browser blocks the CSV fetch, use a simple local server.
-
-Example with Python:
 ```bash
 python -m http.server
 ```
-Then open the local address shown in the terminal.
-
-## GitHub Pages
-1. Create a GitHub repository
-2. Upload all files in this folder
-3. Go to **Settings → Pages**
-4. Set the source to deploy from the main branch
-5. Save and open the published link

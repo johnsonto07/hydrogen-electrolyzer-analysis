@@ -1,189 +1,229 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hydrogen Electrolysis Project</title>
-  <meta name="description" content="Hydrogen electrolysis project with processed data, static matplotlib figures, theory comparison, and error analysis." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hydrogen Electrolysis | Johnson To</title>
+  <meta name="description" content="A benchtop water electrolysis cell: 18 timed trials from 4.0 to 6.5 V, hydrogen measured by water displacement and compared against Faraday's law. Peak Faradaic efficiency 88% at 5.5 V.">
+  <meta property="og:title" content="Hydrogen Electrolysis, measured against Faraday's law">
+  <meta property="og:description" content="18 timed trials from 4.0 to 6.5 V. Peak Faradaic efficiency 88% at 5.5 V. Personal project by Johnson To, UC Berkeley chemical engineering.">
+  <meta property="og:image" content="https://johnsonto07.github.io/hydrogen-electrolyzer-analysis/assets/photos/setup.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f6e83'/%3E%3Ctext x='30' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' text-anchor='middle' fill='white'%3EH%3C/text%3E%3Ctext x='44' y='48' font-family='Arial,sans-serif' font-size='16' font-weight='700' text-anchor='middle' fill='white'%3E2%3C/text%3E%3C/svg%3E">
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <link rel="preload" href="fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <div class="brand">Johnson To</div>
-      <nav class="nav">
-        <a href="#overview">Overview</a>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="https://johnsonto07.github.io/">Johnson To</a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#setup">Setup</a>
         <a href="#theory">Theory</a>
-        <a href="#method">Method</a>
         <a href="#results">Results</a>
-        <a href="#error">Error Analysis</a>
+        <a href="#error">Error</a>
         <a href="#data">Data</a>
       </nav>
+      <button class="theme" type="button" data-theme-toggle aria-label="Switch to dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero">
-      <div class="container hero-inner">
-        <p class="eyebrow">Chemical Engineering Project</p>
-        <h1>Hydrogen Electrolysis Project</h1>
-        <p class="hero-text">
-          This project studies how applied voltage changes current, hydrogen yield, production rate, and system efficiency in a benchtop water electrolysis setup.
-        </p>
-      </div>
-    </section>
-
-    <section id="overview" class="section">
-      <div class="container narrow">
-        <p class="section-label">Overview</p>
-        <h2>Project Goal</h2>
-        <p>
-          The goal of this project is to determine how voltage and current affect hydrogen production, compare experimental yield against the ideal yield predicted by Faraday's Law, and evaluate how efficiently the system converts electrical input into measurable hydrogen gas.
-        </p>
-      </div>
-    </section>
-
-    <section id="theory" class="section alt">
-      <div class="container narrow">
-        <p class="section-label">Theory</p>
-        <h2>Why hydrogen increases</h2>
-        <p>
-          Water electrolysis splits water into hydrogen and oxygen. Hydrogen forms at the cathode through a reduction reaction that requires electrons. Ohm's Law explains how increasing voltage raises current, and Faraday's Law explains how increased current raises hydrogen production.
-        </p>
-
-        <div class="theory-lines">
-          <p><strong>Voltage → Current → Charge → Hydrogen</strong></p>
-          <p>Q = I × t</p>
-          <p>Hydrogen produced ∝ charge passed</p>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">Hydrogen electrolysis, personal project, January to May 2026</p>
+          <h1>How much of the current became hydrogen?</h1>
+          <p class="lede">I built a graphite-electrode electrolysis cell, ran 18 timed trials from 4.0 to 6.5&nbsp;V, and collected the hydrogen by water displacement. Faraday's law says how much hydrogen the charge passed should make. The best runs collected 88% of it.</p>
+          <dl class="stats">
+            <div><dt>Peak Faradaic efficiency</dt><dd>88%</dd></div>
+            <div><dt>Timed trials</dt><dd>18</dd></div>
+            <div><dt>Voltage range</dt><dd>4.0–6.5 V</dd></div>
+            <div><dt>R² of H₂ vs. current</dt><dd>0.991</dd></div>
+          </dl>
         </div>
-
-        <div class="theory-reactions">
-          <p><strong>Cathode:</strong> 2H₂O + 2e⁻ → H₂ + 2OH⁻</p>
-          <p><strong>Overall:</strong> 2H₂O → 2H₂ + O₂</p>
-          <p><strong>Key idea:</strong> Hydrogen production depends directly on current. Voltage affects hydrogen indirectly by increasing current.</p>
-        </div>
+        <figure class="hero-chart panel">
+          <div class="chart" data-chart="charge" role="img" aria-label="Hydrogen collected versus charge passed for all 18 trials, with the Faraday's law line. Every point sits below the line; the gap is smallest around 5.5 volts."></div>
+          <figcaption><span class="key key-meas"></span>Measured, one dot per trial <span class="key key-theory"></span>Faraday's law, 100% efficiency. Hover a dot for details.</figcaption>
+          <p class="tip" data-tip aria-live="polite"></p>
+        </figure>
       </div>
     </section>
 
-    <section id="method" class="section">
-      <div class="container narrow">
-        <p class="section-label">Method</p>
-        <h2>Experimental Design</h2>
-
-        <ul class="clean-list">
-          <li>Electrodes: graphite rods</li>
-          <li>Electrolyte: baking soda (NaHCO<sub>3</sub>) dissolved in 500 mL water</li>
-          <li>Preliminary runs in plain water produced little visible gas, so baking soda was added to raise conductivity (these runs were observed but not recorded)</li>
-          <li>Voltage range tested: 4.0 V to 6.5 V in 0.5 V steps</li>
-          <li>Run time held constant at 60 seconds</li>
-          <li>Measured current and hydrogen volume for each trial</li>
-          <li>Three trials collected at each voltage (18 trials total)</li>
-          <li>Controlled variables: electrolyte volume, run time, and electrode setup</li>
-        </ul>
-
-        <div class="photo-grid">
-          <figure class="photo-card">
-            <img src="assets/photos/IMG_4623.jpg" alt="Experimental Setup">
-            <figcaption>Experimental setup showing the electrolysis apparatus.</figcaption>
-          </figure>
-
-          <figure class="photo-card">
-            <img src="assets/photos/IMG_4588.jpg" alt="Hydrogen Gas Production">
-            <figcaption>Hydrogen collection and measurement setup during a trial.</figcaption>
-          </figure>
+    <section class="section" id="setup" aria-labelledby="setup-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="setup-h">The cell</h2>
+          <p>A beaker, two graphite rods, a bench power supply, and a pair of inverted collection tubes.</p>
+        </div>
+        <div class="split">
+          <div class="photos">
+            <figure class="panel"><img src="assets/photos/setup.jpg" width="1600" height="1200" alt="Bench power supply reading 4.0 volts and 0.055 amps, wired with red and black leads to two graphite electrodes in a beaker of electrolyte with inverted collection tubes." loading="lazy"><figcaption>The full setup at 4.0 V. The supply reads 0.055 A.</figcaption></figure>
+            <figure class="panel"><img src="assets/photos/collection.jpg" width="1600" height="1200" alt="Close-up of a graphite electrode inside a gas collection tube in the electrolyte, with small bubbles on the electrode surface." loading="lazy"><figcaption>Gas collecting in the tube over the cathode during a trial.</figcaption></figure>
+          </div>
+          <div class="prose">
+            <h3>Method</h3>
+            <ul class="specs">
+              <li><span>Electrodes</span>Graphite rods</li>
+              <li><span>Electrolyte</span>Baking soda (NaHCO₃) in 500 mL water</li>
+              <li><span>Voltage</span>4.0 to 6.5 V in 0.5 V steps</li>
+              <li><span>Run time</span>60 s per trial</li>
+              <li><span>Replicates</span>3 per voltage, 18 total</li>
+              <li><span>Measured</span>Current, and H₂ volume by water displacement</li>
+              <li><span>Held constant</span>Electrolyte volume, run time, electrode setup</li>
+            </ul>
+            <h3>Getting it to work</h3>
+            <p>My first runs in plain water made almost no gas. Pure water conducts poorly, so very little current flowed. Dissolving baking soda raised the conductivity enough to get steady bubbling, and every recorded trial uses that electrolyte. The pure-water runs were observed but not recorded.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="results" class="section alt">
-      <div class="container">
-        <p class="section-label">Results</p>
-        <h2>Data-Driven Analysis</h2>
-        <p class="section-note">
-          These figures were generated in matplotlib from the processed dataset. Error bars show trial-to-trial variation across each voltage.
-        </p>
-
-        <div class="graph-grid">
-          <figure class="graph-item">
-            <img src="assets/graphs/voltage_vs_current.png" alt="Voltage vs Current graph" />
-            <figcaption>Voltage vs Current. Current increased approximately linearly as voltage increased.</figcaption>
-          </figure>
-
-          <figure class="graph-item">
-            <img src="assets/graphs/voltage_vs_hydrogen.png" alt="Voltage vs Hydrogen graph" />
-            <figcaption>Voltage vs Hydrogen Volume. Hydrogen yield rose steadily across the tested voltage range.</figcaption>
-          </figure>
-
-          <figure class="graph-item full">
-            <img src="assets/graphs/actual_vs_theoretical_hydrogen.png" alt="Actual vs theoretical hydrogen graph" />
-            <figcaption>Actual vs Theoretical Hydrogen Volume. The ideal yield line gives a direct visual comparison between theory and experiment.</figcaption>
-          </figure>
-
-          <figure class="graph-item">
-            <img src="assets/graphs/current_vs_hydrogen.png" alt="Current vs Hydrogen graph" />
-            <figcaption>Current vs Hydrogen Volume. This is the strongest theory graph because it directly reflects Faraday's Law.</figcaption>
-          </figure>
-
-          <figure class="graph-item">
-            <img src="assets/graphs/voltage_vs_rate.png" alt="Voltage vs hydrogen production rate graph" />
-            <figcaption>Voltage vs Hydrogen Production Rate. Rate increased as the electrical input increased.</figcaption>
-          </figure>
-
-          <figure class="graph-item full">
-            <img src="assets/graphs/voltage_vs_efficiency.png" alt="Voltage vs efficiency graph" />
-            <figcaption>Voltage vs Efficiency. Mean efficiency rose from 66% at 4.0 V to a peak of 88% at 5.5 V (best single trial: 88.3%), then dipped to 82&ndash;85% at 6.0&ndash;6.5 V, where gas began escaping the collection column.</figcaption>
-          </figure>
+    <section class="section section-alt" id="theory" aria-labelledby="theory-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="theory-h">What Faraday's law predicts</h2>
+          <p>Every H₂ molecule at the cathode takes two electrons, so the charge passed sets the most hydrogen a run can make.</p>
+        </div>
+        <div class="split split-even">
+          <div class="prose">
+            <div class="eqs">
+              <p><span>Cathode</span>2H₂O + 2e⁻ → H₂ + 2OH⁻</p>
+              <p><span>Anode</span>2H₂O → O₂ + 4H⁺ + 4e⁻</p>
+              <p><span>Overall</span>2H₂O → 2H₂ + O₂</p>
+            </div>
+            <p>Voltage only matters through current. A higher voltage pushes more current through the electrolyte, more current means more charge in 60 seconds, and more charge means more hydrogen. That is why current vs. hydrogen is the cleanest test of the theory.</p>
+            <p class="formula"><span><i>V</i><sub>H₂</sub></span><span>=</span><span class="frac"><span><i>I</i> · <i>t</i></span><span>2<i>F</i></span></span><span>·</span><span><i>V</i><sub>m</sub></span></p>
+            <p class="small">F = 96,485 C/mol. V<sub>m</sub> = 24.0 L/mol, the molar volume of a gas near 20&nbsp;°C and 1&nbsp;atm. Faradaic efficiency is measured volume divided by this predicted volume.</p>
+          </div>
+          <div class="worked panel">
+            <h3>Worked example: trial 12, 5.5 V</h3>
+            <ol>
+              <li><span>Charge passed</span><b>0.126 A × 60 s = 7.56 C</b></li>
+              <li><span>Moles of electrons</span><b>7.56 C ÷ 96,485 C/mol = 7.84 × 10⁻⁵ mol</b></li>
+              <li><span>Moles of H₂ (2 e⁻ each)</span><b>3.92 × 10⁻⁵ mol</b></li>
+              <li><span>Predicted volume</span><b>3.92 × 10⁻⁵ mol × 24,000 mL/mol = 0.940 mL</b></li>
+              <li><span>Measured volume</span><b>0.830 mL</b></li>
+              <li class="worked-result"><span>Faradaic efficiency</span><b>0.830 ÷ 0.940 = 88.3%</b></li>
+            </ol>
+            <p class="small">This was the best single trial.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="error" class="section">
-      <div class="container narrow">
-        <p class="section-label">Error Analysis</p>
-        <h2>Why measured values differ from ideal values</h2>
-        <ul class="clean-list">
-          <li>Gas loss during collection can lower the measured hydrogen volume.</li>
-          <li>Small-volume readings introduce measurement uncertainty.</li>
-          <li>Current can fluctuate slightly during a run.</li>
-          <li>Baking soda electrolyte has limited conductivity compared with stronger electrolytes.</li>
-          <li>At 6.0 V and above, bubbling became aggressive enough that some gas escaped the collection column (noted in the raw data), which explains the efficiency drop after 5.5 V.</li>
-          <li>Electrode spacing was set by hand and was hard to keep identical between runs. Current rose noticeably when the electrodes sat closer together (observed, not measured), which likely added trial-to-trial variation.</li>
-        </ul>
+    <section class="section" id="results" aria-labelledby="results-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="results-h">Results</h2>
+          <p>Hydrogen tracked current closely. Efficiency climbed from 66% at 4.0 V to 88% at 5.5 V, then fell once gas started escaping the tubes.</p>
+        </div>
+
+        <div class="findings">
+          <article class="finding">
+            <figure class="panel">
+              <div class="chart" data-chart="current" role="img" aria-label="Hydrogen volume versus current for 18 trials with a fitted line of slope 6.74 mL per amp and the Faraday line of slope 7.46 mL per amp."></div>
+              <figcaption><span class="key key-meas"></span>Measured, with linear fit <span class="key key-theory"></span>Faraday's law</figcaption>
+            </figure>
+            <div class="prose">
+              <h3>Each extra amp made 90% of the predicted hydrogen</h3>
+              <p>Across all 18 trials, hydrogen volume rises in a straight line with current (R² = 0.991). The fitted slope is 6.74 mL per amp over a 60 s run. Faraday's law predicts 7.46 mL per amp, so each additional unit of current produced about 90% of the theoretical hydrogen.</p>
+              <p>The fit crosses zero current at about −0.07 mL. That behaves like a fixed loss on every run, possibly hydrogen dissolving into the electrolyte or bubbles staying stuck to the electrode. A fixed loss is a bigger share of a small volume, which explains why the 4.0 V runs, at about 0.28 mL, had the lowest efficiency.</p>
+            </div>
+          </article>
+
+          <article class="finding finding-flip">
+            <figure class="panel">
+              <div class="chart" data-chart="eff" role="img" aria-label="Faradaic efficiency versus voltage. Means: 66.1% at 4.0 V, 77.8% at 4.5 V, 84.0% at 5.0 V, 87.7% at 5.5 V, 82.1% at 6.0 V, 84.6% at 6.5 V. The 6.0 and 6.5 V region is shaded where gas escaped the collection tube."></div>
+              <figcaption><span class="key key-meas"></span>Individual trials <span class="key key-mean"></span>Mean at each voltage</figcaption>
+            </figure>
+            <div class="prose">
+              <h3>Efficiency peaked at 5.5 V</h3>
+              <p>Mean efficiency rose from 66.1% at 4.0 V to 87.7% at 5.5 V. At 6.0 V and above, bubbling got aggressive enough that some gas escaped past the collection tube (I noted this in the raw data for all six of those trials), and efficiency dropped to 82–85%.</p>
+              <p>So 5.5 V was the best operating point for this setup. Going higher made hydrogen faster but lost more of it to collection.</p>
+            </div>
+          </article>
+
+          <article class="finding">
+            <figure class="panel">
+              <div class="chart" data-chart="iv" role="img" aria-label="Current versus voltage, linear from 0.056 A at 4.0 V to 0.201 A at 6.5 V. The fitted line extends to zero current at about 3.1 V, compared with the 1.23 V thermodynamic minimum."></div>
+              <figcaption><span class="key key-meas"></span>Measured current <span class="key key-theory"></span>Linear fit, extended to zero current</figcaption>
+            </figure>
+            <div class="prose">
+              <h3>Nothing happens below about 3 V</h3>
+              <p>Current rose linearly with voltage, about 0.057 A per volt (R² = 0.974 across all trials). Extending that line back to zero current gives about 3.1 V.</p>
+              <p>Splitting water only needs 1.23 V in theory. The extra ~1.9 V goes to overpotential at the graphite electrodes and to pushing current through a weak bicarbonate electrolyte. Those losses are why industrial electrolyzers use concentrated KOH and nickel or catalyst-coated electrodes.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section id="data" class="section alt">
-      <div class="container">
-        <p class="section-label">Processed Data</p>
-        <h2>Summary Table by Voltage</h2>
+    <section class="section section-alt" id="error" aria-labelledby="error-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="error-h">Where the missing hydrogen went</h2>
+          <p>Every trial collected less than Faraday's law predicts. These are the likely reasons.</p>
+        </div>
+        <div class="split split-even">
+          <ol class="errors">
+            <li><b>Gas escaping the tube.</b> At 6.0 and 6.5 V, some bubbles visibly escaped past the collection tube. This explains the efficiency drop after 5.5 V.</li>
+            <li><b>Fixed loss per run.</b> The −0.07 mL intercept in the current fit points to a loss that doesn't scale with current, like dissolved gas or bubbles stuck to the rod. That is about 17% of the predicted hydrogen at 4.0 V but only 5% at 6.5 V.</li>
+            <li><b>Electrode spacing.</b> I set the spacing by hand, and it was hard to keep identical. Current visibly rose when the rods sat closer together. Current varied 5–16% between the three trials at each voltage.</li>
+            <li><b>Reading small volumes.</b> Most runs collected under 1 mL, so a small reading error is a large percentage.</li>
+            <li><b>Current drift.</b> Current can shift slightly during a run, and each trial has one recorded current value.</li>
+          </ol>
+          <div class="prose next">
+            <h3>What I'd change next time</h3>
+            <ul>
+              <li>Switch to a stronger electrolyte like dilute KOH to lower resistance.</li>
+              <li>Fix the electrodes in a holder so the spacing is the same every run.</li>
+              <li>Run for 3–5 minutes instead of 60 s so each reading is several mL, not a fraction of one.</li>
+              <li>Use a wider or longer collection tube so high-voltage runs don't lose gas.</li>
+              <li>Log current every few seconds and integrate it for the charge, instead of using one reading.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="data" aria-labelledby="data-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="data-h">Data</h2>
+          <p>Means of three trials at each voltage. Calculated in Python with pandas; charts on this page are drawn from the same CSV.</p>
+        </div>
         <div class="table-wrap">
-          <table id="summaryTable"></table>
+          <table class="data" data-summary>
+            <caption class="sr">Summary by voltage</caption>
+            <thead><tr><th scope="col">Voltage (V)</th><th scope="col">Current (A)</th><th scope="col">H₂ measured (mL)</th><th scope="col">H₂ predicted (mL)</th><th scope="col">Efficiency (%)</th></tr></thead>
+            <tbody><tr><td colspan="5">Loading data…</td></tr></tbody>
+          </table>
         </div>
-
-        <h2 class="subhead">Raw Data with Calculated Columns</h2>
-        <div class="table-wrap">
-          <table id="rawTable"></table>
-        </div>
+        <details class="raw">
+          <summary>All 18 trials with notes</summary>
+          <div class="table-wrap">
+            <table class="data" data-raw>
+              <caption class="sr">All trials</caption>
+              <thead><tr><th scope="col">Trial</th><th scope="col">Voltage (V)</th><th scope="col">Current (A)</th><th scope="col">H₂ (mL)</th><th scope="col">Predicted (mL)</th><th scope="col">Efficiency (%)</th><th scope="col">Notes</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </details>
+        <p class="downloads">Download: <a href="data/electrolysis_data.csv" download>raw data (CSV)</a>, <a href="data/electrolysis_data_processed.csv" download>processed data (CSV)</a>, <a href="analysis.py">analysis script (Python)</a></p>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-wrap">
-      <div>
-        <strong>Hydrogen Electrolysis Project</strong>
-        <p>Static matplotlib figures, processed data, and theory-based analysis.</p>
-      </div>
-      <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <p>Hydrogen electrolysis, personal project by <a href="https://johnsonto07.github.io/">Johnson To</a>, UC Berkeley chemical engineering.</p>
+      <p><a href="https://johnsonto07.github.io/projects.html">More projects</a></p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
-</body>
-</html>
   <script src="script.js"></script>
 </body>
 </html>
