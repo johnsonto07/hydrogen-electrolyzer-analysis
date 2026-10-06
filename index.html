@@ -31,7 +31,7 @@
   </header>
 
   <main id="main">
-    <section class="hero">
+    <section class="hero page">
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="kicker">Personal project, January to May 2026</p>
@@ -52,17 +52,13 @@
       </div>
     </section>
 
-    <section class="section" id="setup" aria-labelledby="setup-h">
+    <section class="section page" id="setup" aria-labelledby="setup-h">
       <div class="wrap">
         <div class="section-head">
           <h2 id="setup-h">Experimental methods</h2>
           <p>Undivided two-electrode cell, constant-voltage operation from a DC bench supply, volumetric gas collection over each electrode.</p>
         </div>
-        <div class="split">
-          <div class="photos">
-            <figure class="panel"><img src="assets/photos/setup.jpg" width="1600" height="1200" alt="Bench power supply reading 4.0 volts and 0.055 amps, wired with red and black leads to two graphite electrodes in a beaker of electrolyte with inverted collection tubes." loading="lazy"><figcaption>Apparatus during a 4.0 V run; the supply reads 0.055 A.</figcaption></figure>
-            <figure class="panel"><img src="assets/photos/collection.jpg" width="1600" height="1200" alt="Close-up of a graphite electrode inside a gas collection tube in the electrolyte, with small bubbles on the electrode surface." loading="lazy"><figcaption>Gas evolution at the graphite cathode and collection in the inverted tube.</figcaption></figure>
-          </div>
+        <div class="split split-methods">
           <div class="prose">
             <h3>Experimental design</h3>
             <ul class="specs">
@@ -74,18 +70,26 @@
               <li><span>Dependent variables</span>Cell current; H₂ volume by water displacement</li>
               <li><span>Controlled</span>Electrolyte volume, run time, electrode material</li>
             </ul>
-            <h3>Electrolyte selection</h3>
-            <p>Preliminary runs in water without added electrolyte produced negligible gas. Water's low ionic conductivity gives a large ohmic (iR) drop, so almost no current flowed at these voltages. Adding NaHCO₃ as a supporting electrolyte raised the conductivity enough for sustained gas evolution, and all recorded trials use this electrolyte. The preliminary runs were observed qualitatively and are not included in the data.</p>
+          </div>
+          <div>
+            <div class="photos">
+            <figure class="panel"><img src="assets/photos/setup.jpg" width="1600" height="1200" alt="Bench power supply reading 4.0 volts and 0.055 amps, wired with red and black leads to two graphite electrodes in a beaker of electrolyte with inverted collection tubes." loading="lazy"><figcaption>Apparatus during a 4.0 V run; the supply reads 0.055 A.</figcaption></figure>
+            <figure class="panel"><img src="assets/photos/collection.jpg" width="1600" height="1200" alt="Close-up of a graphite electrode inside a gas collection tube in the electrolyte, with small bubbles on the electrode surface." loading="lazy"><figcaption>Gas evolution at the graphite cathode and collection in the inverted tube.</figcaption></figure>
+            </div>
+            <div class="prose">
+              <h3>Electrolyte selection</h3>
+              <p>Preliminary runs in water without added electrolyte produced negligible gas. Water's low ionic conductivity gives a large ohmic (iR) drop, so almost no current flowed at these voltages. Adding NaHCO₃ as a supporting electrolyte raised conductivity enough for sustained gas evolution; all recorded trials use this electrolyte. The preliminary runs were observed qualitatively and are not included in the data.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt" id="theory" aria-labelledby="theory-h">
+    <section class="section section-alt page" id="theory" aria-labelledby="theory-h">
       <div class="wrap">
         <div class="section-head">
           <h2 id="theory-h">Theory</h2>
-          <p>The hydrogen evolution reaction (HER) consumes two electrons per H₂ molecule, so the charge passed fixes the maximum hydrogen a run can produce.</p>
+          <p>The hydrogen evolution reaction (HER) consumes two electrons per H₂, so the charge passed sets the maximum yield.</p>
         </div>
         <div class="split split-even">
           <div class="prose">
@@ -114,14 +118,12 @@
       </div>
     </section>
 
-    <section class="section" id="results" aria-labelledby="results-h">
+    <section class="section page" id="results" aria-labelledby="results-h">
       <div class="wrap">
         <div class="section-head">
           <h2 id="results-h">Results</h2>
-          <p>H₂ yield was linear in current. Faradaic efficiency increased from 66.1% at 4.0 V to a maximum of 87.7% at 5.5 V, then declined once gas losses from the collection tube began at 6.0 V. Values are mean ± SD, n = 3; fit parameters are ± one standard error.</p>
+          <p>Values are mean ± SD, n = 3; fit parameters are ± one standard error.</p>
         </div>
-
-        <div class="findings">
           <article class="finding">
             <figure class="panel">
               <div class="chart" data-chart="current" role="img" aria-label="Hydrogen volume versus current for 18 trials with a fitted line of slope 6.74 mL per amp and the Faraday line of slope 7.46 mL per amp."></div>
@@ -133,7 +135,11 @@
               <p>The fitted intercept, −0.073 ± 0.022 mL, is significantly below zero. This indicates a current-independent loss in every run, consistent with H₂ dissolving into the electrolyte and gas retained as bubbles adhering to the electrode. A fixed loss is a larger fraction of a small collected volume, which accounts for the low efficiency of the 4.0 V runs (mean 0.28 mL collected).</p>
             </div>
           </article>
+      </div>
+    </section>
 
+    <section class="section page page-cont" aria-label="Results: efficiency by voltage">
+      <div class="wrap">
           <article class="finding finding-flip">
             <figure class="panel">
               <div class="chart" data-chart="eff" role="img" aria-label="Faradaic efficiency versus voltage. Means: 66.1% at 4.0 V, 77.8% at 4.5 V, 84.0% at 5.0 V, 87.7% at 5.5 V, 82.1% at 6.0 V, 84.6% at 6.5 V. The 6.0 and 6.5 V region is shaded where gas escaped the collection tube."></div>
@@ -145,7 +151,11 @@
               <p>The decline above 5.5 V reflects a collection loss rather than a change in the electrochemistry. For this apparatus, 5.5 V maximizes measured efficiency; higher voltages raise the production rate at the cost of collection efficiency.</p>
             </div>
           </article>
+      </div>
+    </section>
 
+    <section class="section page page-cont" aria-label="Results: onset voltage">
+      <div class="wrap">
           <article class="finding">
             <figure class="panel">
               <div class="chart" data-chart="iv" role="img" aria-label="Current versus voltage, linear from 0.056 A at 4.0 V to 0.201 A at 6.5 V. The fitted line extends to zero current at about 3.1 V, compared with the 1.23 V thermodynamic minimum."></div>
@@ -157,11 +167,10 @@
               <p>The thermodynamic minimum for water splitting is 1.23 V. The additional ~1.9 V is attributable to activation overpotentials for the HER and the oxygen evolution reaction (OER) on uncatalyzed graphite, plus ohmic losses in the dilute bicarbonate electrolyte. The inverse of the slope, about 17 Ω, approximates the total cell resistance in this range. Commercial alkaline electrolyzers reduce both losses with concentrated KOH and nickel-based electrodes.</p>
             </div>
           </article>
-        </div>
       </div>
     </section>
 
-    <section class="section section-alt" id="error" aria-labelledby="error-h">
+    <section class="section section-alt page" id="error" aria-labelledby="error-h">
       <div class="wrap">
         <div class="section-head">
           <h2 id="error-h">Error analysis</h2>
@@ -189,7 +198,7 @@
       </div>
     </section>
 
-    <section class="section" id="data" aria-labelledby="data-h">
+    <section class="section page" id="data" aria-labelledby="data-h">
       <div class="wrap">
         <div class="section-head">
           <h2 id="data-h">Data</h2>
