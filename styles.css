@@ -67,7 +67,7 @@ sub { font-size: .7em; }
 .hero { padding: 64px 0 80px; }
 .hero-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
 .kicker { color: var(--muted); font-weight: 500; margin-bottom: 14px; }
-.hero h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 800; font-variation-settings: "wdth" 118; letter-spacing: -.02em; margin-bottom: 20px; max-width: 14ch; }
+.hero h1 { font-size: clamp(30px, 3.7vw, 46px); font-weight: 800; font-variation-settings: "wdth" 110; letter-spacing: -.015em; margin-bottom: 20px; max-width: 22ch; }
 .lede { font-size: 19px; color: var(--muted); max-width: 52ch; }
 .stats { display: grid; grid-template-columns: repeat(2, max-content); gap: 18px 48px; margin: 28px 0 0; padding: 22px 0 0; border-top: 1px solid var(--line); }
 .stats div { display: flex; flex-direction: column-reverse; }
@@ -166,6 +166,7 @@ table.data { width: 100%; border-collapse: collapse; font-size: 15px; font-varia
 .data th:first-child, .data td:first-child { text-align: left; }
 .data td.note { text-align: left; white-space: normal; min-width: 18em; color: var(--muted); }
 .data tbody tr:last-child td { border-bottom: 0; }
+.data .pm { color: var(--muted); font-weight: 400; }
 .data tr.best td { background: var(--h2-soft); font-weight: 600; }
 .raw { margin-top: 20px; }
 .raw summary { cursor: pointer; font-weight: 600; padding: 8px 0; }

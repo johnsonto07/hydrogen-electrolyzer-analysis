@@ -41,6 +41,8 @@
     return { m: m, b: my - m * mx, r2: (sxy * sxy) / (sxx * syy) };
   }
   function mean(a) { return a.reduce(function (s, v) { return s + v; }, 0) / a.length; }
+  function sd(a) { var m = mean(a); return Math.sqrt(a.reduce(function (s, v) { return s + (v - m) * (v - m); }, 0) / (a.length - 1)); }
+  function pm(a, d) { return fmt(mean(a), d) + ' <span class="pm">± ' + fmt(sd(a), d) + '</span>'; }
   function fmt(v, d) { return v.toFixed(d); }
 
   /* Minimal SVG chart frame */
@@ -74,7 +76,8 @@
     volts.sort(function (a, b) { return a - b; });
     var groups = volts.map(function (v) {
       var g = trials.filter(function (t) { return t.V === v; });
-      return { V: v, I: mean(g.map(function (t) { return t.I; })), H: mean(g.map(function (t) { return t.H; })), P: mean(g.map(function (t) { return t.P; })), E: mean(g.map(function (t) { return t.E; })), trials: g };
+      return { V: v, I: mean(g.map(function (t) { return t.I; })), H: mean(g.map(function (t) { return t.H; })), P: mean(g.map(function (t) { return t.P; })), E: mean(g.map(function (t) { return t.E; })), trials: g,
+        Is: g.map(function (t) { return t.I; }), Hs: g.map(function (t) { return t.H; }), Ps: g.map(function (t) { return t.P; }), Es: g.map(function (t) { return t.E; }) };
     });
     var best = trials.reduce(function (a, b) { return b.E > a.E ? b : a; });
 
@@ -156,7 +159,7 @@
     var sb = document.querySelector('[data-summary] tbody');
     if (sb) {
       sb.innerHTML = groups.map(function (g) {
-        return '<tr' + (g.E === Math.max.apply(null, groups.map(function (x) { return x.E; })) ? ' class="best"' : '') + '><td>' + fmt(g.V, 1) + '</td><td>' + fmt(g.I, 3) + '</td><td>' + fmt(g.H, 2) + '</td><td>' + fmt(g.P, 2) + '</td><td>' + fmt(g.E, 1) + '</td></tr>';
+        return '<tr' + (g.E === Math.max.apply(null, groups.map(function (x) { return x.E; })) ? ' class="best"' : '') + '><td>' + fmt(g.V, 1) + '</td><td>' + pm(g.Is, 3) + '</td><td>' + pm(g.Hs, 2) + '</td><td>' + pm(g.Ps, 2) + '</td><td>' + pm(g.Es, 1) + '</td></tr>';
       }).join('');
     }
     var rb = document.querySelector('[data-raw] tbody');
