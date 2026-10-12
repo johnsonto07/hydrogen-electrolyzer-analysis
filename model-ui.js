@@ -5,24 +5,36 @@
   if (!M || !C || !form) return;
   var fmt = C.fmt, frame = C.frame, range = C.range;
 
+  // Each control can appear twice (Model section "m-" and Lab section "x-"); both stay in sync.
   var controls = [
-    { key: 'V', id: 'm-V', d: 2 },
-    { key: 'c', id: 'm-c', d: 3 },
-    { key: 'spacingMm', id: 'm-s', d: 0 },
-    { key: 'areaMm2', id: 'm-A', d: 0 }
+    { key: 'V', ids: ['m-V', 'x-V'], d: 2 },
+    { key: 'c', ids: ['m-c', 'x-c'], d: 3 },
+    { key: 'spacingMm', ids: ['m-s', 'x-s'], d: 0 },
+    { key: 'areaMm2', ids: ['m-A', 'x-A'], d: 0 }
   ];
-  var state = {}, base = {}, trials = [];
+  var state = {}, base = {}, trials = [], listeners = [];
+  controls.forEach(function (ctl) { ctl.ids = ctl.ids.filter(function (id) { return document.getElementById(id); }); });
+
+  // Shared with lab.js so the apparatus animation follows the same settings
+  window.ModelBus = {
+    state: state,
+    get trials() { return trials; },
+    onChange: function (fn) { listeners.push(fn); },
+    set: function (key, v) { controls.forEach(function (ctl) { if (ctl.key === key) setControl(ctl, v); }); draw(); }
+  };
 
   function expDefaults() {
     return { V: M.defaults.V, c: M.fitted.cEff, spacingMm: M.defaults.spacingMm, areaMm2: M.defaults.areaMm2 };
   }
   function clamp(v, el) { return Math.min(+el.max, Math.max(+el.min, v)); }
-  function setControl(ctl, v) {
-    var num = document.getElementById(ctl.id), sl = document.getElementById(ctl.id + '-r');
-    v = clamp(v, num);
+  function setControl(ctl, v, skip) {
+    v = clamp(v, document.getElementById(ctl.ids[0]));
     state[ctl.key] = v;
-    num.value = fmt(v, ctl.d);
-    sl.value = v;
+    ctl.ids.forEach(function (id) {
+      var num = document.getElementById(id), sl = document.getElementById(id + '-r');
+      if (num !== skip) num.value = fmt(v, ctl.d);
+      sl.value = v;
+    });
   }
 
   /* Ticks that land on round numbers for an axis from 0 to max */
@@ -48,6 +60,7 @@
 
   function draw() {
     var op = M.solve({ V: state.V, c: state.c, spacingMm: state.spacingMm, areaMm2: state.areaMm2 });
+    listeners.forEach(function (fn) { fn(state, op); });
     var showBase = !sameAsBase();
     var now = curve(state, 1, 7), ref = showBase ? curve(base, 1, 7) : null;
 
@@ -115,20 +128,24 @@
 
   function wire() {
     controls.forEach(function (ctl) {
-      var num = document.getElementById(ctl.id), sl = document.getElementById(ctl.id + '-r');
-      sl.addEventListener('input', function () { setControl(ctl, +sl.value); draw(); });
-      num.addEventListener('change', function () {
-        var v = parseFloat(num.value);
-        if (!isFinite(v)) v = state[ctl.key];
-        setControl(ctl, v); draw();
-      });
-      num.addEventListener('input', function () {
-        var v = parseFloat(num.value);
-        if (isFinite(v) && v >= +num.min && v <= +num.max) { state[ctl.key] = v; sl.value = v; draw(); }
+      ctl.ids.forEach(function (id) {
+        var num = document.getElementById(id), sl = document.getElementById(id + '-r');
+        sl.addEventListener('input', function () { setControl(ctl, +sl.value); draw(); });
+        num.addEventListener('change', function () {
+          var v = parseFloat(num.value);
+          if (!isFinite(v)) v = state[ctl.key];
+          setControl(ctl, v); draw();
+        });
+        num.addEventListener('input', function () {
+          var v = parseFloat(num.value);
+          if (isFinite(v) && v >= +num.min && v <= +num.max) { setControl(ctl, v, num); draw(); }
+        });
       });
     });
-    form.querySelector('[data-model-reset]').addEventListener('click', function () {
-      var d = expDefaults(); controls.forEach(function (ctl) { setControl(ctl, d[ctl.key]); }); draw();
+    document.querySelectorAll('[data-model-reset]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var d = expDefaults(); controls.forEach(function (ctl) { setControl(ctl, d[ctl.key]); }); draw();
+      });
     });
     var lastW = window.innerWidth, timer;
     window.addEventListener('resize', function () {

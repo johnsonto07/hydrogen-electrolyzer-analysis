@@ -246,6 +246,56 @@
       </div>
     </section>
 
+    <section class="section page page-cont lab" id="lab" aria-labelledby="lab-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="lab-h">Run the experiment</h2>
+          <p>Set the supply, then press Run for a 60 s trial like the ones in the data. The cell follows the model above: H₂ collects over the cathode and O₂ over the anode at half the volume.</p>
+        </div>
+        <div class="lab-grid">
+          <figure class="panel lab-scene">
+            <div data-lab-scene role="img" aria-label="Animated electrolysis apparatus: bench power supply wired to two graphite rods inside inverted collection tubes in a beaker of electrolyte. Gas collects at the top of each tube during a run."></div>
+          </figure>
+          <div class="lab-side panel">
+            <form class="lab-controls" onsubmit="return false">
+              <div class="ctl">
+                <label for="x-V">Voltage <span class="unit">V</span></label>
+                <input type="range" id="x-V-r" min="1" max="7" step="0.05" aria-label="Applied voltage slider">
+                <input type="number" id="x-V" min="1" max="7" step="0.05" inputmode="decimal">
+              </div>
+              <div class="ctl">
+                <label for="x-c">NaHCO₃ <span class="unit">mol/L</span></label>
+                <input type="range" id="x-c-r" min="0.02" max="1" step="0.001" aria-label="NaHCO3 concentration slider">
+                <input type="number" id="x-c" min="0.02" max="1" step="0.001" inputmode="decimal">
+              </div>
+              <div class="ctl">
+                <label for="x-s">Spacing <span class="unit">mm</span></label>
+                <input type="range" id="x-s-r" min="10" max="100" step="1" aria-label="Electrode spacing slider">
+                <input type="number" id="x-s" min="10" max="100" step="1" inputmode="decimal">
+              </div>
+              <div class="ctl">
+                <label for="x-A">Area <span class="unit">mm²</span></label>
+                <input type="range" id="x-A-r" min="200" max="3000" step="1" aria-label="Electrode area slider">
+                <input type="number" id="x-A" min="200" max="3000" step="1" inputmode="decimal">
+              </div>
+            </form>
+            <div class="lab-buttons">
+              <button type="button" class="run" data-lab-run>Run 60 s</button>
+              <button type="button" class="reset" data-lab-empty>Refill tubes</button>
+              <label class="speed"><input type="checkbox" data-lab-fast> 10× speed</label>
+            </div>
+            <dl class="model-out lab-out" aria-live="off">
+              <div><dt>Time</dt><dd data-lab="t">0.0 s</dd></div>
+              <div><dt>Charge passed</dt><dd data-lab="q">0.00 C</dd></div>
+              <div><dt>H₂ collected</dt><dd data-lab="h2">0.00 mL</dd></div>
+              <div><dt>O₂ collected</dt><dd data-lab="o2">0.00 mL</dd></div>
+            </dl>
+            <p class="lab-compare" data-lab-compare aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-alt page" id="error" aria-labelledby="error-h">
       <div class="wrap">
         <div class="section-head">
@@ -312,5 +362,6 @@
   <script src="script.js"></script>
   <script src="model.js"></script>
   <script src="model-ui.js"></script>
+  <script src="lab.js"></script>
 </body>
 </html>
