@@ -1,6 +1,6 @@
 # Hydrogen Electrolysis
 
-Project site: https://johnsonto07.github.io/hydrogen-electrolyzer-analysis/
+Project site: https://hydrogen.johnsonto.com/
 
 A benchtop water electrolysis cell with graphite electrodes and a baking soda electrolyte. 18 timed trials from 4.0 to 6.5 V, hydrogen measured by water displacement and compared against Faraday's law. Peak Faradaic efficiency was 88% at 5.5 V.
 
