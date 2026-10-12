@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model Checks | Hydrogen Electrolysis</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main { padding: 40px 0 64px; }
+    h1 { font-size: 30px; margin-bottom: 8px; }
+    .lead { color: var(--muted); margin-bottom: 24px; }
+    .check { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; }
+    .check h2 { font-size: 18px; margin: 0 0 6px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+    .badge { font-size: 13px; font-weight: 700; border-radius: 999px; padding: 1px 10px; color: var(--surface); }
+    .pass { background: var(--h2); } .fail { background: var(--warn); }
+    .check p { margin: 0 0 8px; font-size: 15px; }
+    .check table.data { font-size: 14px; }
+    .check .table-wrap { margin-top: 8px; }
+    .summary { font-size: 18px; font-weight: 700; margin-bottom: 18px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Model checks</h1>
+    <p class="lead">Runs <code>model.js</code> against <code>data/electrolysis_data.csv</code> after fitting the two uncertain parameters. <a href="index.html#model">Back to the model</a></p>
+    <p class="summary" data-summary>Running…</p>
+    <div data-results></div>
+  </main>
+  <script src="model.js"></script>
+  <script>
+  (function () {
+    var M = window.H2Model;
+    var TOL_CURRENT = 0.10;   // modeled vs. mean measured current, relative, at each voltage
+    var ONSET_TARGET = 3.1;   // V, the apparent onset the site reports
+    var TOL_ONSET = 0.2;      // V
+    var TOL_FARADAY = 1e-9;   // relative
+
+    function parseCsv(text) {
+      var lines = text.replace(/^﻿/, '').trim().split(/\r?\n/);
+      var head = lines[0].split(',').map(function (h) { return h.trim(); });
+      return lines.slice(1).map(function (line) { var v = line.split(','), r = {}; head.forEach(function (h, i) { r[h] = (v[i] || '').trim(); }); return r; });
+    }
+    function f(v, d) { return v.toFixed(d); }
+    function table(head, rows) {
+      return '<div class="table-wrap"><table class="data"><thead><tr>' + head.map(function (h) { return '<th>' + h + '</th>'; }).join('') +
+        '</tr></thead><tbody>' + rows.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+    }
+    var results = [];
+    function report(name, pass, body) { results.push({ name: name, pass: pass, body: body }); }
+
+    fetch('data/electrolysis_data.csv').then(function (r) { return r.text(); }).then(function (text) {
+      var trials = parseCsv(text).map(function (r) { return { V: parseFloat(r['Voltage (V)']), I: parseFloat(r['Current (A)']) }; })
+        .filter(function (t) { return isFinite(t.V) && isFinite(t.I); });
+      var fit = M.fit(trials);
+
+      /* 1. Current at each voltage */
+      var volts = []; trials.forEach(function (t) { if (volts.indexOf(t.V) < 0) volts.push(t.V); }); volts.sort(function (a, b) { return a - b; });
+      var rows = [], ok1 = true;
+      volts.forEach(function (v) {
+        var g = trials.filter(function (t) { return t.V === v; });
+        var mean = g.reduce(function (a, t) { return a + t.I; }, 0) / g.length;
+        var lo = Math.min.apply(null, g.map(function (t) { return t.I; })), hi = Math.max.apply(null, g.map(function (t) { return t.I; }));
+        var I = M.solve({ V: v }).I, dev = I / mean - 1, pass = Math.abs(dev) <= TOL_CURRENT;
+        ok1 = ok1 && pass;
+        rows.push([f(v, 1), f(mean, 4), f(lo, 3) + '–' + f(hi, 3), f(I, 4), (dev >= 0 ? '+' : '') + f(dev * 100, 1) + '%', pass ? 'pass' : 'FAIL']);
+      });
+      report('Modeled current matches measured current at each voltage', ok1,
+        '<p>Tolerance: ±' + (TOL_CURRENT * 100) + '% of the mean of the three trials. Fitted values: NaHCO₃ ' + f(fit.cEff, 3) + ' ± ' + f(fit.cEffSE, 3) +
+        ' mol/L (effective), j₀ = ' + fit.j0.toExponential(2) + ' A/cm². RMS error over all 18 trials: ' + f(fit.rmsA * 1000, 1) + ' mA.</p>' +
+        table(['Voltage (V)', 'Measured mean (A)', 'Measured range (A)', 'Model (A)', 'Difference', 'Result'], rows));
+
+      /* 2. Onset */
+      var pts = []; for (var v = 4; v <= 6.5 + 1e-9; v += 0.05) pts.push({ V: v, I: M.solve({ V: v }).I });
+      var on = M.linearOnset(pts), onMeas = M.linearOnset(trials);
+      var firstMa = 0; for (v = 1.3; v < 7; v += 0.01) { if (M.solve({ V: v }).I >= 1e-3) { firstMa = v; break; } }
+      var ok2 = Math.abs(on.onsetV - ONSET_TARGET) <= TOL_ONSET;
+      report('Model onset lands near 3.1 V', ok2,
+        '<p>Same method as the Results section: a straight line through current vs. voltage from 4.0 to 6.5 V, extended to zero current. Tolerance ±' + TOL_ONSET + ' V.</p>' +
+        table(['', 'Onset (V)', 'Slope (A/V)'], [
+          ['Model, linear extrapolation', f(on.onsetV, 2), f(on.slope, 4)],
+          ['Measured, linear extrapolation', f(onMeas.onsetV, 2), f(onMeas.slope, 4)]
+        ]) + '<p class="small" style="margin-top:8px">The model curve itself bends below 4 V (Butler–Volmer kinetics), so it first reaches 1 mA at ' + f(firstMa, 2) + ' V, not at the extrapolated value.</p>');
+
+      /* 3. Faraday consistency */
+      var worst = 0, rows3 = [];
+      [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7].forEach(function (v) {
+        var s = M.solve({ V: v }), fv = M.faradayVolume(s.I, s.tS), rel = fv > 0 ? Math.abs(s.volMl / fv - 1) : Math.abs(s.volMl);
+        worst = Math.max(worst, rel);
+        rows3.push([f(v, 1), f(s.I, 4), f(s.volMl, 4), f(fv, 4), rel.toExponential(1)]);
+      });
+      report('Model H₂ volume equals Faraday\'s law applied to modeled current', worst <= TOL_FARADAY,
+        '<p>V = I·t / (2F) · V<sub>m</sub>, t = 60 s. Tolerance: relative difference ≤ ' + TOL_FARADAY.toExponential(0) + '.</p>' +
+        table(['Voltage (V)', 'Model current (A)', 'Model H₂ (mL)', 'Faraday H₂ (mL)', 'Relative difference'], rows3));
+
+      /* 4. Concentration effect */
+      var cs = [0.05, 0.1, fit.cEff, 0.3, 0.5, 1.0], ok4 = true, prev = null, rows4 = [];
+      cs.forEach(function (c) {
+        var s = M.solve({ V: 5.5, c: c });
+        if (prev) ok4 = ok4 && s.ohmic < prev.ohmic && s.I > prev.I && s.R < prev.R;
+        rows4.push([f(c, 3), f(s.kappa * 10, 2), f(s.R, 2), f(s.ohmic, 3), f(s.I, 4)]);
+        prev = s;
+      });
+      report('Raising NaHCO₃ concentration lowers ohmic loss and raises current', ok4,
+        '<p>At 5.5 V with spacing and area at the experimental values. Each step up in concentration must lower R<sub>Ω</sub> and I·R<sub>Ω</sub> and raise I.</p>' +
+        table(['NaHCO₃ (mol/L)', 'κ (mS/cm)', 'R<sub>Ω</sub> (Ω)', 'I·R<sub>Ω</sub> (V)', 'Current (A)'], rows4));
+
+      var nPass = results.filter(function (r) { return r.pass; }).length;
+      document.querySelector('[data-summary]').textContent = nPass + ' of ' + results.length + ' checks passed';
+      document.querySelector('[data-results]').innerHTML = results.map(function (r) {
+        return '<section class="check" data-check="' + (r.pass ? 'pass' : 'fail') + '"><h2><span class="badge ' + (r.pass ? 'pass">PASS' : 'fail">FAIL') + '</span>' + r.name + '</h2>' + r.body + '</section>';
+      }).join('');
+      window.__checks = results.map(function (r) { return { name: r.name, pass: r.pass }; });
+    }).catch(function (e) {
+      document.querySelector('[data-summary]').textContent = 'Could not load the data file: ' + e;
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -23,6 +23,7 @@
         <a href="#setup">Methods</a>
         <a href="#theory">Theory</a>
         <a href="#results">Results</a>
+        <a href="#model">Model</a>
         <a href="#error">Error</a>
         <a href="#data">Data</a>
       </nav>
@@ -43,6 +44,7 @@
             <div><dt>Applied cell voltage</dt><dd>4.0–6.5 V</dd></div>
             <div><dt>R², H₂ volume vs. current</dt><dd>0.991</dd></div>
           </dl>
+          <p class="try"><a href="#model">Try the model</a></p>
         </div>
         <figure class="hero-chart panel">
           <div class="chart" data-chart="charge" role="img" aria-label="Hydrogen collected versus charge passed for all 18 trials, with the Faraday's law line. Every point sits below the line; the gap is smallest around 5.5 volts."></div>
@@ -170,6 +172,80 @@
       </div>
     </section>
 
+    <section class="section page model" id="model" aria-labelledby="model-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="model-h">Model</h2>
+          <p>Voltage balance V = E<sub>rev</sub> + η<sub>a</sub> + η<sub>c</sub> + I·R<sub>Ω</sub>, solved for current. Dashed curves stay at the experimental conditions. <a href="https://github.com/johnsonto07/hydrogen-electrolyzer-analysis/blob/main/MODEL_NOTES.md">Model notes</a></p>
+        </div>
+        <div class="model-grid">
+          <div class="model-side">
+          <form class="model-controls panel" data-model-form onsubmit="return false">
+            <div class="ctl">
+              <label for="m-V">Voltage <span class="unit">V</span></label>
+              <input type="range" id="m-V-r" min="1" max="7" step="0.05" aria-label="Applied voltage slider">
+              <input type="number" id="m-V" min="1" max="7" step="0.05" inputmode="decimal">
+            </div>
+            <div class="ctl">
+              <label for="m-c">NaHCO₃ <span class="unit">mol/L</span> <span class="tag">fitted</span></label>
+              <input type="range" id="m-c-r" min="0.02" max="1" step="0.001" aria-label="NaHCO3 concentration slider">
+              <input type="number" id="m-c" min="0.02" max="1" step="0.001" inputmode="decimal">
+            </div>
+            <div class="ctl">
+              <label for="m-s">Spacing <span class="unit">mm</span></label>
+              <input type="range" id="m-s-r" min="10" max="100" step="1" aria-label="Electrode spacing slider">
+              <input type="number" id="m-s" min="10" max="100" step="1" inputmode="decimal">
+            </div>
+            <div class="ctl">
+              <label for="m-A">Area <span class="unit">mm²</span></label>
+              <input type="range" id="m-A-r" min="200" max="3000" step="1" aria-label="Electrode area slider">
+              <input type="number" id="m-A" min="200" max="3000" step="1" inputmode="decimal">
+            </div>
+            <button type="button" class="reset" data-model-reset>Reset to experiment</button>
+          </form>
+          <div class="model-readout panel">
+            <dl class="model-out" aria-live="polite">
+              <div><dt>Current</dt><dd data-out="I">–</dd></div>
+              <div><dt>H₂ rate</dt><dd data-out="rate">–</dd></div>
+              <div><dt>H₂ in 60 s</dt><dd data-out="vol">–</dd></div>
+              <div><dt>Voltage efficiency</dt><dd data-out="veff">–</dd></div>
+              <div class="wide"><dt>Energy per kg H₂ at 100% / 90% Faradaic</dt><dd data-out="energy">–</dd></div>
+            </dl>
+          </div>
+          </div>
+          <figure class="panel m-iv">
+            <div class="chart" data-chart="m-iv" role="img" aria-label="Modeled current versus applied voltage with the 18 measured trials plotted on top."></div>
+            <figcaption><span class="key key-model"></span>Model <span class="key key-theory"></span>Experimental conditions <span class="key key-meas"></span>Measured</figcaption>
+          </figure>
+          <figure class="panel m-h2">
+            <div class="chart" data-chart="m-h2" role="img" aria-label="Hydrogen volume in 60 seconds versus applied voltage: model at 100 and 90 percent Faradaic efficiency, with measured trials."></div>
+            <figcaption><span class="key key-model"></span>Model, 100% <span class="key key-model90"></span>Model, 90% <span class="key key-meas"></span>Measured</figcaption>
+          </figure>
+          <figure class="panel m-bar">
+            <div class="chart" data-chart="m-bar" role="img" aria-label="Breakdown of the applied voltage into reversible voltage, activation overpotential, and ohmic loss."></div>
+            <figcaption data-bar-cap><span class="key key-sw key-rev"></span>Reversible <span class="key key-sw key-act"></span>Activation (both electrodes) <span class="key key-sw key-ohm"></span>Ohmic (I·R<sub>Ω</sub>)</figcaption>
+          </figure>
+        </div>
+        <div class="model-notes">
+          <div>
+            <h3>Assumptions</h3>
+            <ul>
+              <li data-fitted><span class="tag">fitted</span> Fitting to the measured trials…</li>
+              <li>20 °C assumed, so E<sub>rev</sub> = 1.233 V and V<sub>m</sub> = 24.0 L/mol.</li>
+              <li>Bare 6 mm graphite rods, 50 mm immersed, spacing center to center. Tubes and clips are not modeled.</li>
+              <li>Butler–Volmer kinetics, α = 0.5 (116 mV/decade), same j₀ at both electrodes.</li>
+              <li>R<sub>Ω</sub> for two parallel rods in a large bath; conductivity from an extended Onsager equation.</li>
+              <li>Model H₂ at 100% Faradaic efficiency. Gas loss above 5.5 V is not modeled.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Where the model and data disagree</h3>
+            <p data-disagree>Modeled current is within <span data-fill="maxdev">–</span> of the measured mean at every voltage, inside the replicate spread from hand-set spacing. Measured H₂ falls below the 90% line at every voltage: most at 4.0 V, where the fixed loss per run seen in Results dominates, and again above 5.5 V, where gas escaped the tubes. The fitted concentration is an effective value that also absorbs current paths through the collection tubes and clips, so it may differ from what was mixed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-alt page" id="error" aria-labelledby="error-h">
       <div class="wrap">
         <div class="section-head">
@@ -234,5 +310,7 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="model.js"></script>
+  <script src="model-ui.js"></script>
 </body>
 </html>

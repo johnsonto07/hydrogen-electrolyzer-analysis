@@ -3,6 +3,9 @@
   var VM = 24000;     // mL/mol, near 20 °C and 1 atm
   var NS = 'http://www.w3.org/2000/svg';
 
+  /* Shared with model-ui.js so the Model charts use the same chart frame */
+  window.SiteCharts = { frame: frame, range: range, parseCsv: parseCsv, fmt: fmt };
+
   /* Theme toggle */
   var root = document.documentElement;
   var themeBtn = document.querySelector('[data-theme-toggle]');
